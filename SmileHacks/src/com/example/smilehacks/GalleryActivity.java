@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.os.Bundle;
 import android.provider.MediaStore.Images.Media;
 import android.widget.ImageView;
@@ -17,6 +18,7 @@ public class GalleryActivity extends Activity {
 	private Bitmap bitmap;
 	private ArrayList<Circle> container = new ArrayList<Circle>();
 	private float[] vers;
+	private Canvas canvas;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +45,14 @@ public class GalleryActivity extends Activity {
 		}
 		
 		changeBitmap(bitmap);
+		canvas.drawBitmapMesh(bitmap, 1, 1, vers, 0, null, 0, null);
 		
-	    imageView.setImageBitmap(bitmap);
+	    //imageView.setImageBitmap(bitmap);
 	}
 
 	private void changeBitmap(Bitmap bitmap){
+		
+		
 		
 		// 画像の四隅に円を配置
 	    Circle c1 = new Circle(25, 10, 10);
