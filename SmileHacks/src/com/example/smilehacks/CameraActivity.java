@@ -63,10 +63,12 @@ public class CameraActivity extends Activity {
 								values.put(Images.Media.MIME_TYPE,"image/jpeg");
 								values.put("_data",imgPath);
 								getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,values);
-								
-							}catch(Exception e){}
+								System.out.println("SaveComplete!!");
+							}catch(Exception e){
+								System.out.println("SaveFailed!!");
+							}
 							c.startPreview();
-							System.out.println("SaveComplete!!");
+							
 							
 						}
 					});
