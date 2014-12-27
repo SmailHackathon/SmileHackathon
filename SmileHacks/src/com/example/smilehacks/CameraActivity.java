@@ -70,6 +70,7 @@ public class CameraActivity extends Activity {
 		
 		public void surfaceCreated(SurfaceHolder holder){
 			c = Camera.open(0);
+			c.setDisplayOrientation(90);
 			if(c != null){
 				try{
 					c.setPreviewDisplay(surHold);
