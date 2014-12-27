@@ -84,7 +84,7 @@ public class CameraActivity extends Activity {
 			if(c != null){
 				Parameters params = c.getParameters();
 				if(cSize != null){
-					params.setPreviewSize(864,480);
+					params.setPreviewSize(480,864);
 					c.setParameters(params);
 				}
 				c.startPreview();
