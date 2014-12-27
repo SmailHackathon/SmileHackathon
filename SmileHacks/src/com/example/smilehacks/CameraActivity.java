@@ -85,6 +85,7 @@ public class CameraActivity extends Activity {
 			if(c != null){
 				Parameters params = c.getParameters();
 				if(cSize != null){
+					params.setRotation(90);
 					params.setPreviewSize(480,864);
 					c.setParameters(params);
 				}
