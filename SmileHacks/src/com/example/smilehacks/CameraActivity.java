@@ -2,6 +2,8 @@ package com.example.smilehacks;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 import android.app.Activity;
@@ -50,8 +52,10 @@ public class CameraActivity extends Activity {
 							String savePath = Environment.getExternalStorageDirectory().getPath() + "Camera";
 							File file = new File(savePath);
 							if(!file.exists()) file.mkdir();
-						
-							String imgPath = savePath + "/IMG_"+"wahhoi"+".jpg";
+							Calendar cal = Calendar.getInstance();
+				            SimpleDateFormat sdFormat = new SimpleDateFormat("yyyyMMdd_HHmmss");
+				            String imgPath = savePath + "/" + "IMG_"
+				                    + sdFormat.format(cal.getTime()) + ".jpg";
 							
 							try{
 								FileOutputStream fos = new FileOutputStream(imgPath, true);
