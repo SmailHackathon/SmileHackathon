@@ -1,9 +1,13 @@
 package com.example.smilehacks;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.view.View.OnClickListener;
 
 public class CameraActivity extends Activity {
 
@@ -11,6 +15,12 @@ public class CameraActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_camera);
+		final Button gallery = (Button) findViewById(R.id.gallery);
+		gallery.setOnClickListener(new OnClickListener(){
+			public void onClick(View v){
+				startGalleryActivity();
+			}
+		});
 	}
 
 	@Override
@@ -30,5 +40,10 @@ public class CameraActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	private void startGalleryActivity(){
+		Intent intent = new Intent(this,GalleryActivity.class);
+		startActivity(intent);
 	}
 }

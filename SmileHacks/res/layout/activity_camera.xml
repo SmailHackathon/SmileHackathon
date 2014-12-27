@@ -15,23 +15,28 @@
         android:text="@string/hello_world" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/takePhoto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button2"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="39dp"
-        android:text="Button" />
+        android:layout_marginBottom="15dp"
+        android:text="takePhoto" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/gallery"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/button1"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="58dp"
-        android:text="Button" />
+        android:layout_alignBaseline="@+id/takePhoto"
+        android:layout_alignBottom="@+id/takePhoto"
+        android:layout_alignLeft="@+id/textView1"
+        android:text="Gallery" />
 
-
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/gallery"
+        android:layout_marginBottom="80dp"
+        android:layout_toRightOf="@+id/textView1" />
 
 </RelativeLayout>
