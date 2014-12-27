@@ -14,12 +14,14 @@ import android.widget.Button;
 import android.view.View.OnClickListener;
 import android.hardware.Camera;
 import android.hardware.Camera.Parameters;
+import android.hardware.Camera.PictureCallback;
 import android.hardware.Camera.Size;
 
 public class CameraActivity extends Activity {
 	
 	SurfaceView sur;
 	SurfaceHolder surHold;
+	Camera c;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,9 +29,25 @@ public class CameraActivity extends Activity {
 		setContentView(R.layout.activity_camera);
 		//getUIparts
 		final Button gallery = (Button) findViewById(R.id.gallery);
+		final Button takePhoto = (Button) findViewById(R.id.takePhoto);
+		
 		StartCamera();
 		gallery.setOnClickListener(new OnClickListener(){
 			public void onClick(View v){startGalleryActivity();}
+		});
+		takePhoto.setOnClickListener(new OnClickListener(){
+			public void onClick(View v){
+				if(c != null){
+					c.takePicture(null,null,new Camera.PictureCallback(){
+						public void onPictureTaken(byte[] data, Camera camera){
+							if(data == null) return;
+							
+							System.out.println("TakePicture!!!写真とったよ！！");
+							
+						}
+					});
+				}
+			}
 		});
 	}
 
@@ -65,7 +83,7 @@ public class CameraActivity extends Activity {
 	}
 	private class SurfaceCallback implements SurfaceHolder.Callback{
 		
-		Camera c;
+		
 		List<Size> cSize;
 		
 		public void surfaceCreated(SurfaceHolder holder){
@@ -98,4 +116,7 @@ public class CameraActivity extends Activity {
 			c = null;
 		}
 	}
+	
+
+	
 }
