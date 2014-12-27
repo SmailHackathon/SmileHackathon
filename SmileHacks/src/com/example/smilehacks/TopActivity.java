@@ -1,21 +1,29 @@
 package com.example.smilehacks;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 
 public class TopActivity extends Activity {
 
-	Button bt1;
+	Button bt1, bt2;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_top);
 		
-		bt1 = (Button) findViewById(R.id.button1);
+		bt1 = (Button) findViewById(R.id.button1);//カメラへのボタン
+		bt2 = (Button) findViewById(R.id.button2);//ギャラリーへのボタン
+		
+		bt1.setOnClickListener(new SampleClickListener());
+		bt2.setOnClickListener(new SampleClickListener());
+	
 	}
 
 	@Override
@@ -36,4 +44,19 @@ public class TopActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
+	class SampleClickListener implements OnClickListener{
+    	public void onClick(View v){
+//    		if(v == bt1){
+//    			Intent i = new Intent(getApplication(), com.example.smilehacks.CameraActivity.class);
+//    			//アクティビティの開始
+//    			startActivity(i);
+//    		}
+//    		if(v == bt2){
+//            	Intent i = new Intent(getApplication(), com.example.smilehacks.GalleryActivity.class);
+//            	//アクティビティの開始
+//            	startActivity(i);
+//        	}
+    	}
+    }
 }
