@@ -49,7 +49,9 @@ public class CameraActivity extends Activity {
 					c.takePicture(null,null,new Camera.PictureCallback(){
 						public void onPictureTaken(byte[] data, Camera camera){
 							if(data == null) return;
-							String savePath = Environment.getExternalStorageDirectory().getPath() + "Camera";
+							
+
+							String savePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString() + "/smile/";
 							System.out.println("これが、パスだ！！！"+savePath);
 							File file = new File(savePath);
 							if(!file.exists()) file.mkdir();
@@ -70,7 +72,9 @@ public class CameraActivity extends Activity {
 								getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,values);
 								System.out.println("SaveComplete!!");
 							}catch(Exception e){
+								
 								System.out.println("SaveFailed!!");
+								System.out.println(e);
 							}
 							c.startPreview();
 							
