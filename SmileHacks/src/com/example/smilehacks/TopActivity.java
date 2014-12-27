@@ -47,16 +47,16 @@ public class TopActivity extends Activity {
 	
 	class SampleClickListener implements OnClickListener{
     	public void onClick(View v){
-//    		if(v == bt1){
-//    			Intent i = new Intent(getApplication(), com.example.smilehacks.CameraActivity.class);
-//    			//アクティビティの開始
-//    			startActivity(i);
-//    		}
-//    		if(v == bt2){
-//            	Intent i = new Intent(getApplication(), com.example.smilehacks.GalleryActivity.class);
-//            	//アクティビティの開始
-//            	startActivity(i);
-//        	}
+    		if(v == bt1){
+    			Intent i = new Intent(getApplication(), com.example.smilehacks.CameraActivity.class);
+    			//アクティビティの開始
+    			startActivity(i);
+    		}
+    		if(v == bt2){
+            	Intent i = new Intent(getApplication(), com.example.smilehacks.GalleryActivity.class);
+            	//アクティビティの開始
+            	startActivity(i);
+        	}
     	}
     }
 }
