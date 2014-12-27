@@ -82,52 +82,13 @@ public class CameraActivity extends Activity {
 		
 		public void surfaceChanged(SurfaceHolder holder, int format, int width, int height){
 			if(c != null){
-				System.out.println("helloworld2");
 				Parameters params = c.getParameters();
 				if(cSize != null){
-					System.out.println("helloworld3");
-					
-					
-					
-					final double ASPECT_TOLERANCE = 0.1;
-			        double targetRatio = (double) width / height;
-			            
-
-			        Size optimalSize = null;
-			        double minDiff = Double.MAX_VALUE;
-
-			        int targetHeight = height;
-
-			        // Try to find an size match aspect ratio and size
-			        for (Size size : cSize) {
-			            double ratio = (double) size.width / size.height;
-			            if (Math.abs(ratio - targetRatio) > ASPECT_TOLERANCE)
-			                continue;
-			            if (Math.abs(size.height - targetHeight) < minDiff) {
-			                optimalSize = size;
-			                minDiff = Math.abs(size.height - targetHeight);
-			            }
-			        }
-
-			        // Cannot find the one match the aspect ratio, ignore the requirement
-			        if (optimalSize == null) {
-			            minDiff = Double.MAX_VALUE;
-			            for (Size size : cSize) {
-			                if (Math.abs(size.height - targetHeight) < minDiff) {
-			                    optimalSize = size;
-			                    minDiff = Math.abs(size.height - targetHeight);
-			                }
-			            }
-			        }
-					
-			        
-					
-					
-					
-					params.setPreviewSize(optimalSize.width,optimalSize.height);
-	                c.setParameters(params);
+					for (Size size : cSize) {
+						System.out.println("heightだよおおおお:"+size.height);
+						System.out.println("widthだよおおおお:"+size.width);
+					}
 				}
-				c.startPreview();
 			}
 		}
 		public void surfaceDestroyed(SurfaceHolder arg0){
