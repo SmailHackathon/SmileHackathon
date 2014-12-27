@@ -84,11 +84,10 @@ public class CameraActivity extends Activity {
 			if(c != null){
 				Parameters params = c.getParameters();
 				if(cSize != null){
-					for (Size size : cSize) {
-						System.out.println("heightだよおおおお:"+size.height);
-						System.out.println("widthだよおおおお:"+size.width);
-					}
+					params.setPreviewSize(864,480);
+					c.setParameters(params);
 				}
+				c.startPreview();
 			}
 		}
 		public void surfaceDestroyed(SurfaceHolder arg0){
