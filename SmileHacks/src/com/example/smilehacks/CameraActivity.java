@@ -27,7 +27,7 @@ public class CameraActivity extends Activity {
 		setContentView(R.layout.activity_camera);
 		//getUIparts
 		final Button gallery = (Button) findViewById(R.id.gallery);
-		//StartCamera();
+		StartCamera();
 		gallery.setOnClickListener(new OnClickListener(){
 			public void onClick(View v){startGalleryActivity();}
 		});
