@@ -1,10 +1,16 @@
 package com.example.smilehacks;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.provider.MediaStore.Images;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SurfaceHolder;
@@ -41,8 +47,26 @@ public class CameraActivity extends Activity {
 					c.takePicture(null,null,new Camera.PictureCallback(){
 						public void onPictureTaken(byte[] data, Camera camera){
 							if(data == null) return;
+							String savePath = Environment.getExternalStorageDirectory().getPath() + "Camera";
+							File file = new File(savePath);
+							if(!file.exists()) file.mkdir();
+						
+							String imgPath = savePath + "/IMG_"+"wahhoi"+".jpg";
 							
-							System.out.println("TakePicture!!!写真とったよ！！");
+							try{
+								FileOutputStream fos = new FileOutputStream(imgPath, true);
+								//指定したフォルダにファイル
+								fos.write(data);
+								fos.close();
+								
+								ContentValues values = new ContentValues();
+								values.put(Images.Media.MIME_TYPE,"image/jpeg");
+								values.put("_data",imgPath);
+								getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,values);
+								c.startPreview();
+								
+								
+							}catch(Exception e){}
 							
 						}
 					});
@@ -116,7 +140,5 @@ public class CameraActivity extends Activity {
 			c = null;
 		}
 	}
-	
-
-	
+		
 }
