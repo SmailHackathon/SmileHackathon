@@ -50,7 +50,7 @@ public class CameraActivity extends Activity {
 						public void onPictureTaken(byte[] data, Camera camera){
 							if(data == null) return;
 							String savePath = Environment.getExternalStorageDirectory().getPath() + "Camera";
-							System.out.println("これが、パスだ！！！\n"+savePath+"\n\n\n\n");
+							System.out.println("これが、パスだ！！！"+savePath);
 							File file = new File(savePath);
 							if(!file.exists()) file.mkdir();
 							Calendar cal = Calendar.getInstance();
