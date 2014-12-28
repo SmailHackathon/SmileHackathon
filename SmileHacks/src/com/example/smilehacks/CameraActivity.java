@@ -20,10 +20,18 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
 import android.view.View.OnClickListener;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.BitmapFactory.Options;
+import android.graphics.PointF;
 import android.hardware.Camera;
 import android.hardware.Camera.Parameters;
-import android.hardware.Camera.PictureCallback;
 import android.hardware.Camera.Size;
+
+
+//import android.hardware.Camera.PictureCallback;
+/*多分。本番になったら消すimport*/
+//import android.media.FaceDetector;
 
 public class CameraActivity extends Activity {
 	
@@ -48,11 +56,36 @@ public class CameraActivity extends Activity {
 				if(c != null){
 					c.takePicture(null,null,new Camera.PictureCallback(){
 						public void onPictureTaken(byte[] data, Camera camera){
+							
 							if(data == null) return;
+							
+							/*コメントアウトするよ*/
+							/*
+							Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+							Bitmap bmp2 = bmp.copy(Bitmap.Config.RGB_565, true);
+							FaceDetector.Face faces[] = new FaceDetector.Face[10];
+							FaceDetector detector = new FaceDetector(bmp2.getWidth(),bmp2.getHeight(),faces.length);
+							detector.findFaces(bmp2,faces);
+							PointF point = new PointF();
+							if(faces != null)
+							for(FaceDetector.Face face : faces){
+								try{
+									face.getMidPoint(point);
+									System.out.println("x座標:"+point.x+"　y座標:"+point.y);
+									System.out.println(face.eyesDistance());
+									System.out.println("FaceUP!!!!!!");
+								}catch(Exception e){}
+							}
+							*/
+							
+							
+							
+								
+							
 							
 
 							String savePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString() + "/smile/";
-							System.out.println("これが、パスだ！！！"+savePath);
+							
 							File file = new File(savePath);
 							if(!file.exists()) file.mkdir();
 							Calendar cal = Calendar.getInstance();

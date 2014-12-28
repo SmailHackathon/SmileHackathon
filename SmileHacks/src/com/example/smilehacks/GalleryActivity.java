@@ -7,10 +7,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.BitmapRegionDecoder;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PointF;
 import android.graphics.Paint.Style;
+import android.graphics.RectF;
+import android.media.FaceDetector;
 import android.os.Bundle;
 import android.provider.MediaStore.Images.Media;
 import android.view.MotionEvent;
@@ -75,6 +79,46 @@ public class GalleryActivity extends Activity {
         canvas.drawBitmapMesh(bitmap, 1, 1, vers, 0, null, 0, null);
         //canvas.drawCircle(50, 50, 100, paint);
         int size = container.size();
+        /*矢野書き換え(START)*/
+        System.out.println("変換はじまったっぽい");
+		Bitmap bmp2 = bmp.copy(Bitmap.Config.RGB_565, true);
+		FaceDetector.Face faces[] = new FaceDetector.Face[10];
+		FaceDetector detector = new FaceDetector(bmp2.getWidth(),bmp2.getHeight(),faces.length);
+		detector.findFaces(bmp2,faces);
+		PointF point = new PointF();
+		if(faces != null)
+		for(FaceDetector.Face face : faces){
+			try{
+				
+				face.getMidPoint(point);
+				float fDist = face.eyesDistance();
+				PointF LEye = new PointF((float)0.1*fDist+point.x,(float)-0.5*fDist+point.y);
+				PointF REye = new PointF((float)-1*fDist+point.x,(float)-0.5*fDist+point.y);
+				
+				
+				//canvas.drawRect((float) 5, fDist,point.x, point.y, paint);
+				
+//				BitmapFactory.Options options = new BitmapFactory.Options();
+//				options.inJustDecodeBounds = true;
+//				
+//				BitmapRegionDecoder decoder = BitmapRegionDecoder.newInstance(data.getData(),true); 
+//				
+//				Bitmap BitmapR = decorder.decodeEegion(new RectF(REye.x, REye.y, REye.x+fDist, REye.y+fDist),options);
+//				Bitmap BitmapL = decorder.decodeEegion(new RectF(LEye.x, LEye.y, LEye.x+fDist, LEye.y+fDist),options);
+//				
+				
+				
+				
+//				new RectF(REye.x, REye.y, REye.x+fDist, REye.y+fDist);
+//				new RectF(LEye.x, LEye.y, LEye.x+fDist, LEye.y+fDist);
+				
+				System.out.println("x座標:"+point.x+"　y座標:"+point.y);
+				System.out.println("x座標:"+LEye.x+"　y座標:"+point.y);
+				System.out.println("FaceUP!!!!!!");
+			}catch(Exception e){}
+		}
+
+        /*矢野書き換え(END)*/
         for(int i=0 ; i< size ; i++)
         {
            Circle c = container.get(i);
@@ -98,7 +142,7 @@ public class GalleryActivity extends Activity {
 	    Circle c4 = new Circle(25f, bitmap.getWidth()+10, bitmap.getHeight()+10);
 	    container.add(c4);
 	    
-	    vers = new float[]{c1.x + 100, c1.y + 100, c2.x, c2.y, c3.x, c3.y, c4.x, c4.y};
+	    vers = new float[]{c1.x, c1.y, c2.x, c2.y, c3.x, c3.y, c4.x, c4.y};
 		
 		
 	    
