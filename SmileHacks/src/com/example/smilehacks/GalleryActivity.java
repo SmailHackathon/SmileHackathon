@@ -18,11 +18,20 @@ import android.media.FaceDetector;
 import android.os.Bundle;
 import android.provider.MediaStore.Images.Media;
 import android.view.MotionEvent;
+import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 
 public class GalleryActivity extends Activity {
 
-	private ImageView imageView;
+	private ImageView imageView1;
+	private ImageView imageView2;
+	private ImageView imageView3;
+	private ImageView imageView4;
+	private ImageView imageView5;
+	private ImageView imageView6;
+	private ImageView imageView7;
+
 	private Bitmap bitmap;
 	private Bitmap bmp;
 	private ArrayList<Circle> container = new ArrayList<Circle>();
@@ -35,7 +44,13 @@ public class GalleryActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_gallery);
-		imageView = (ImageView) findViewById(R.id.imageView1);
+		imageView1 = (ImageView) findViewById(R.id.imageView1);
+		imageView2 = (ImageView) findViewById(R.id.imageView2);
+		imageView3 = (ImageView) findViewById(R.id.imageView3);
+		imageView4 = (ImageView) findViewById(R.id.imageView4);
+		imageView5 = (ImageView) findViewById(R.id.imageView5);
+		imageView6 = (ImageView) findViewById(R.id.imageView6);
+		imageView7 = (ImageView) findViewById(R.id.imageView7);
 		
 		Intent i = new Intent(
 	    Intent.ACTION_PICK, Media.EXTERNAL_CONTENT_URI);  
@@ -63,7 +78,7 @@ public class GalleryActivity extends Activity {
 		// Canvasの作成:描画先のBitmapを与える
         
         canvas = new Canvas(bmp);
-        canvas.drawColor(Color.BLACK);
+        canvas.drawColor(Color.TRANSPARENT);
          
         // Paintの作成
         
@@ -71,14 +86,33 @@ public class GalleryActivity extends Activity {
         paint.setColor(Color.WHITE);
         paint.setStyle(Style.FILL);
         paint.setAntiAlias(true);
- 
-        // キャンバスに円を描画する
-        changeBitmap(bmp);
         
-        imageView.setImageBitmap(bmp);
+        //元画像
+        imageView1.setImageBitmap(bitmap);
+        
+        // キャンバスを変換する
+        changeBitmap(bmp, 1);//右目右
+        imageView2.setImageBitmap(bmp);
+        
+        changeBitmap(bmp, 2);//右目左
+        imageView2.setImageBitmap(bmp);
+        
+        changeBitmap(bmp, 1);//左目右
+        imageView2.setImageBitmap(bmp);
+        
+        changeBitmap(bmp, 2);//左目左
+        imageView2.setImageBitmap(bmp);
+        
+        changeBitmap(bmp, 1);//口右
+        imageView2.setImageBitmap(bmp);
+        
+        changeBitmap(bmp, 2);//口左
+        imageView2.setImageBitmap(bmp);
+        
         canvas.drawBitmapMesh(bitmap, 1, 1, vers, 0, null, 0, null);
-        //canvas.drawCircle(50, 50, 100, paint);
         int size = container.size();
+        
+        
         /*矢野書き換え(START)*/
         System.out.println("変換はじまったっぽい");
 		Bitmap bmp2 = bmp.copy(Bitmap.Config.RGB_565, true);
@@ -128,8 +162,8 @@ public class GalleryActivity extends Activity {
 	    
 	}
 
-	private void changeBitmap(Bitmap bitmap){
-		
+	//flag==1の時右上とがり、flag==2の時左上とがり、表示するx,y座標の指定
+	private void changeBitmap(Bitmap bitmap, int flag){ 
 		
 		
 		// 画像の四隅に円を配置
@@ -142,11 +176,17 @@ public class GalleryActivity extends Activity {
 	    Circle c4 = new Circle(25f, bitmap.getWidth()+10, bitmap.getHeight()+10);
 	    container.add(c4);
 	    
-	    vers = new float[]{c1.x, c1.y, c2.x, c2.y, c3.x, c3.y, c4.x, c4.y};
-		
+	    if(flag == 1){
+	    	vers = new float[]{c1.x, c1.y+100, c2.x, c2.y-100, c3.x, c3.y+100, c4.x, c4.y-100};
+	    }
+	    else if(flag == 2){
+	    	vers = new float[]{c1.x, c1.y-100, c2.x, c2.y+100, c3.x, c3.y-100, c4.x, c4.y+100};
+	    }
+	    
+
+	    
 		
 	    
-		//return bitmap;
 	}
 	
 	
