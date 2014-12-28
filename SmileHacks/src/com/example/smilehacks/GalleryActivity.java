@@ -34,6 +34,7 @@ public class GalleryActivity extends Activity {
 
 	private Bitmap bitmap;
 	private Bitmap bmp;
+	private Bitmap bmp1;
 	private ArrayList<Circle> container = new ArrayList<Circle>();
 	private float[] vers;
 	private Canvas canvas;
@@ -75,6 +76,7 @@ public class GalleryActivity extends Activity {
 		int width = bitmap.getWidth();
 		
 		bmp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+		//bmp1 = Bitmap.createBitmap(bitmap, 0, 0, 100, 100, null, true);
 		// Canvasの作成:描画先のBitmapを与える
         
         canvas = new Canvas(bmp);
@@ -88,31 +90,8 @@ public class GalleryActivity extends Activity {
         paint.setAntiAlias(true);
         
         //元画像
-        imageView1.setImageBitmap(bitmap);
-        
-        // キャンバスを変換する
-        changeBitmap(bmp, 1);//右目右
-        imageView2.setImageBitmap(bmp);
-        
-        changeBitmap(bmp, 2);//右目左
-        imageView2.setImageBitmap(bmp);
-        
-        changeBitmap(bmp, 1);//左目右
-        imageView2.setImageBitmap(bmp);
-        
-        changeBitmap(bmp, 2);//左目左
-        imageView2.setImageBitmap(bmp);
-        
-        changeBitmap(bmp, 1);//口右
-        imageView2.setImageBitmap(bmp);
-        
-        changeBitmap(bmp, 2);//口左
-        imageView2.setImageBitmap(bmp);
-        
-        canvas.drawBitmapMesh(bitmap, 1, 1, vers, 0, null, 0, null);
-        int size = container.size();
-        
-        
+        //imageView1.setImageBitmap(bitmap);
+
         /*矢野書き換え(START)*/
         System.out.println("変換はじまったっぽい");
 		Bitmap bmp2 = bmp.copy(Bitmap.Config.RGB_565, true);
@@ -149,10 +128,38 @@ public class GalleryActivity extends Activity {
 				System.out.println("x座標:"+point.x+"　y座標:"+point.y);
 				System.out.println("x座標:"+LEye.x+"　y座標:"+point.y);
 				System.out.println("FaceUP!!!!!!");
+				bmp1 = Bitmap.createBitmap(bitmap, (int)REye.x, (int)REye.y, (int)(REye.x+fDist), (int)(REye.y+fDist), null, true);
 			}catch(Exception e){}
 		}
 
         /*矢野書き換え(END)*/
+        
+        // キャンバスを変換する
+        changeBitmap(bmp1, 0);
+        imageView2.setImageBitmap(bmp1);
+//        changeBitmap(bmp, 1);//右目右
+//        imageView2.setImageBitmap(bmp);
+//        
+//        changeBitmap(bmp, 2);//右目左
+//        imageView2.setImageBitmap(bmp);
+//        
+//        changeBitmap(bmp, 1);//左目右
+//        imageView2.setImageBitmap(bmp);
+//        
+//        changeBitmap(bmp, 2);//左目左
+//        imageView2.setImageBitmap(bmp);
+//        
+//        changeBitmap(bmp, 1);//口右
+//        imageView2.setImageBitmap(bmp);
+//        
+//        changeBitmap(bmp, 2);//口左
+//        imageView2.setImageBitmap(bmp);
+        
+        canvas.drawBitmapMesh(bitmap, 1, 1, vers, 0, null, 0, null);
+        int size = container.size();
+        
+        
+
         for(int i=0 ; i< size ; i++)
         {
            Circle c = container.get(i);
@@ -176,7 +183,10 @@ public class GalleryActivity extends Activity {
 	    Circle c4 = new Circle(25f, bitmap.getWidth()+10, bitmap.getHeight()+10);
 	    container.add(c4);
 	    
-	    if(flag == 1){
+	    if(flag == 0){
+	    	vers = new float[]{c1.x, c1.y, c2.x, c2.y, c3.x, c3.y, c4.x, c4.y};
+	    }
+	    else if(flag == 1){
 	    	vers = new float[]{c1.x, c1.y+100, c2.x, c2.y-100, c3.x, c3.y+100, c4.x, c4.y-100};
 	    }
 	    else if(flag == 2){
